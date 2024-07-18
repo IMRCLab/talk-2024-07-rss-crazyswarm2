@@ -17,13 +17,9 @@ navigationMode: 'linear'
 controls: false
 ---
 
-# Intro
+## Who We Are {data-background-image="media/map.png"}
 
-## Who We Are
-
-* TODO: picture from google slides
-
-# A bit of history: Crazyswarm1
+<!-- # A bit of history: Crazyswarm1 -->
 
 ##
 ```{=html}
@@ -39,10 +35,9 @@ controls: false
     - Heavily rely on motion capture (custom frame-by-frame tracking) & radio broadcasts
 - Widely used in research (as of 2022)
 
-TODO add figure
+    ![](media/crazyswarm1usage.png){width=60%}
 
-TODO: put video side-by-side?
-
+<!-- 
 ## Lessons Learned
 
 - Support (and testing) is crucial for community acceptance
@@ -54,10 +49,15 @@ TODO: put video side-by-side?
     - Fidelity vs Speed of Simulation
     - Heterogeneous robots
 - Field moves towards full autonomy (larger robots, smaller team size)
-    - Many papers cite Crazyswarm 1 as “negative example” (heavily centralized and dependent on motion capture)
+    - Many papers cite Crazyswarm 1 as “negative example” (heavily centralized and dependent on motion capture) -->
 
 # Crazyswarm2
 
+## Architecture
+
+![](media/architecture.png){width=70%}
+
+<!-- 
 ## Design Focus
 
 1. Clean ROS 2 Design
@@ -71,10 +71,7 @@ TODO: put video side-by-side?
 3. Reliability
     - Online swarm monitoring
     - Automated tests
-
-## Architecture
-
-TODO: add pic from google slides
+-->
 
 ## Side Note: Motion Capture Tracking
 
@@ -83,15 +80,32 @@ TODO: add pic from google slides
     - Support for many systems (OptiTrack, VICON, Qualisys, VRPN, …)
     - Initial position must be known
 
-    TODO: add picture
+    ![](media/cf_4markers.png){width=20%}
 
-- Separate ROS 2 package
-https://github.com/IMRCLab/motion_capture_tracking
+- Separate [ROS 2 package](https://github.com/IMRCLab/motion_capture_tracking)
 - Other supported tracking methods: LightHouse, UWB, (FlowDeck)
 
 # Swarm Handling
 
 ## Crazyflie Server
+
+::: {.container}
+:::: {.col}
+- Receives a list of Crazyflie URIs and ROS server parameters
+- Connects to multiple Crazyflies though multiple Crazyradio PAs
+- Sets logging and parameters, and several services
+- Has multiple backends
+    - Crazyflie python library by Bitcraze
+    - Crazyflie c++ library by IMRClab
+    - Simulation backend (will be mentioned later)
+::::
+:::: {.col}
+![](media/architecture_server.png){width=100%}
+::::
+:::
+
+
+
 
 ## Swarm Monitoring
 
@@ -110,20 +124,33 @@ https://github.com/IMRCLab/motion_capture_tracking
 
 ## Simulation
 
+::: {.container}
+:::: {.col-two}
 - Goals
     - Test before crash
     - Data collection for ML methods (IL or RL)
 - Different physics backends
-    - None (visualize desired motion), numpy, pinocchio, neuralswarm, …
+    - None (visualize desired motion), numpy, neuralswarm, ...
 - Different visualizations
-    - Rviz, pdf, blender, …
+    - Rviz, pdf, blender, ...
 - Implemented as a crazyflie_server (same ROS 2 API)
     - GUI and Python scripts work without changes
 - Software-in-the-loop (SITL)
+::::
+:::: {.col-one}
+![](media/architecture_simulation.png){width=80%}
 
-TODO: survey paper
+::: {.box-ex}
+:::: {.box-ex-title}
+Great survey paper
+::::
+![](media/qr_survey.png){width=50%}
 
-TODO: pic
+<!-- “Survey of Simulators for Aerial Robots”, Dimmig et. al., IEEE RAM 2024 (to appear) {.font-weight=50} -->
+:::
+::::
+:::
+
 
 ## Software-in-the-loop (SITL)
 
@@ -132,6 +159,11 @@ TODO: pic
 ## Simulation Demo 1: Swarm Setpoints
 
 TODO: figure out if we can add and highlight code easily in the slides
+
+```markdown
+- test1: bla
+- test2
+```
 
 ## Simulation Demo 2: Downwash
 
