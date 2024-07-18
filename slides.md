@@ -73,6 +73,7 @@ controls: false
     - Automated tests
 -->
 
+<!-- 
 ## Side Note: Motion Capture Tracking
 
 - Robots have one or more markers (configuration can be identical)
@@ -83,7 +84,8 @@ controls: false
     ![](media/cf_4markers.png){width=20%}
 
 - Separate [ROS 2 package](https://github.com/IMRCLab/motion_capture_tracking)
-- Other supported tracking methods: LightHouse, UWB, (FlowDeck)
+- Other supported tracking methods: LightHouse, UWB, (FlowDeck) 
+-->
 
 # Swarm Handling
 
@@ -107,18 +109,29 @@ controls: false
 
 
 
-## Swarm Monitoring
+<!-- ## Swarm Monitoring
 
 - Reasoning
 - GUI explanation
 - Status information sent
-- Need picture
+- Need picture -->
 
 ## Tabletop Demo
 
-- DEMO -  Go through YAMl file and tabletop connect,
-- DEMO - RQT plot or plotjuggler and RVIZ2
-- DEMO - Table top connect and open up swarm monitoring gu
+- crazyflies_tabletop.yaml: configure crazyflies, parameters, and logging
+- Launch server
+```
+ros2 launch crazyswarm2_rss2024_demo launch_tabletop.py
+```
+- Plot data live
+```
+ros2 run plotjuggler plotjuggler
+```
+- Change parameters live
+```
+rqt
+```
+
 
 # Simulation
 
@@ -152,79 +165,94 @@ Great survey paper
 :::
 
 
-## Software-in-the-loop (SITL)
-
-TODO: pic
-
 ## Simulation Demo 1: Swarm Setpoints
 
-TODO: figure out if we can add and highlight code easily in the slides
-
-```markdown
-- test1: bla
-- test2
+- Show server_sim1.yaml
+- Execute simulation
+```
+ros2 launch crazyswarm2_rss2024_demo launch_sim1.py
+```
+- Resulting animation
+```
+firefox results.html
 ```
 
 ## Simulation Demo 2: Downwash
+
+- Change server.yaml config file
+
+```
+    sim:
+      backend: neuralswarm        # see backend folder for a list 
+```
+
+- Execute simulation
+```
+ros2 launch crazyswarm2_rss2024_demo launch_sim2.py
+```
+- [result.html](media/result.html){target="_blank"}
+- [result.pdf](media/result.pdf){target="_blank"}
 
 # Python API
 
 ## Services and API wrapper
 
+::: {.container}
+:::: {.col-one}
 - Server setup ROS2
     - Command and logging topics
     - Command  Services
     - All crazyflie parameters
 - This is done for each connected crazyflie and for all, which is a lot!
 - Python ROS2 wrapper to simply scripting and behavior
-
-TODO: pic
+::::
+:::: {.col-one}
+![](media/api.png)
+::::
+:::
 
 ## Demo
 
-- TODO: should show some example script at this point, e.g, the swap2?
+- Show script `swap.py`
+- Execute flight
+```
+ros2 launch crazyswarm2_rss2024_demo launch_sim2_real.py
+```
 
 # Application Examples
 
-## Synchronized Data Collection With Collision Avoidance
-
-- Show script (explain clock synchronization, data collection)
-
-## Collaborative Payload Transport
-
-- Mostly firmware changes
-- Broadcasts for payload setpoints
-    - Custom setpoint format (information about cables)
-
 ## Mapping Using Existing ROS 2 Packages
 
-<!-- Most likely no real slides, but live demo's instead 
-# Demos
+::: {.container}
+:::: {.col-two}
+- Crazyswarm2 can also be interfaced with other external packages
+- `scan` and `odom` for Nav2 or other navigation packages
+- Command the crazyflies with teleop keyboard
+- Relies on many other packages, including a [map merger](https://github.com/abdulkadrtr/mapMergeForMultiRobotMapping-ROS2)
 
-## Assisted Teleop
+```
+ros2 launch crazyswarm2_rss2024_demo swarm_mapper_launch.py
+```
 
-(TODO: check if multi-joystick support works in the latest ROS version; goal: two joysticks and two robots)
+```
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
 
-## Figure 8
+::::
+:::: {.col-one}
+![](media/ext_packages.png)
+::::
+:::
 
-(All 5)
-(reference to uav_trajectories for generation)
 
-## Logging & Params
+## {data-background-video="media/mapping.mkv"}
 
-(Logging: perhaps something with plotjuggler?)
-(Params: broadcast for all of them to play some music or change LEDs?)
 
-## Simulation
+## Optional: Synchronized Data Collection With Collision Avoidance
 
-(show interaction-aware swap example)
+- Show script `random_flight.py` (clock synchronization, data collection, collision avoidance)
 
-## Advanced 1
-
-(distributed/slow computation?)
-(collision avoidance?)
-(formation control?)
--->
+## {data-background-video="media/dataCollection.mp4"}
 
 # Conclusion
 
@@ -243,7 +271,7 @@ TODO: pic
 
 - GitHub Discussions for almost everything
 
-    TODO: add picture
+    ![](media/community.png)
 
 - GitHub Issue, if you are confident code changes are needed
 
